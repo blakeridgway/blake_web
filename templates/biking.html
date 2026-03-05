@@ -1,0 +1,164 @@
+{{define "title"}}Cycling | Blake Ridgway{{end}}
+{{define "description"}}Tracking 5,000+ miles annually with power meter analytics, training data, and expedition planning powered by Intervals.icu.{{end}}
+
+{{define "content"}}
+<!-- Page Header: Terminal Window with Live Stats -->
+<section style="background: var(--bg-dark); border-bottom: 1px solid var(--border-color); padding: 3.5rem 0;">
+    <div class="container-lg">
+        <div class="terminal-window" style="max-width: 600px;">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="ms-2">blake&#64;ridgway:~/cycling</span>
+            </div>
+            <div class="terminal-body">
+                <div class="term-prompt">cat ytd_stats.json</div>
+                <div class="term-output mb-3">
+                    <span class="text-muted">{</span><br>
+                    <span class="term-comment">&nbsp; "miles":&nbsp;&nbsp;&nbsp;</span><span class="text-primary-custom">"{{printf "%.0f" .Stats.Distance}}"</span><span class="text-muted">,</span><br>
+                    <span class="term-comment">&nbsp; "elevation":</span><span class="text-primary-custom">"{{.Stats.Elevation}}ft"</span><span class="text-muted">,</span><br>
+                    <span class="term-comment">&nbsp; "rides":&nbsp;&nbsp;</span><span class="text-primary-custom">"{{.Stats.Count}}"</span><span class="text-muted">,</span><br>
+                    <span class="term-comment">&nbsp; "avg_speed":</span><span class="text-primary-custom">"{{printf "%.1f" .Stats.AvgSpeed}}mph"</span><br>
+                    <span class="text-muted">}</span>
+                </div>
+                <div class="term-prompt cursor-blink">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container-lg py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <!-- YTD Performance -->
+            <section class="mb-5">
+                <div class="section-header">
+                    <span class="section-title">// {{fmtDate (now) "2006"}} performance</span>
+                </div>
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="bi bi-speedometer2"></i>
+                            </div>
+                            <div class="stat-value blue">{{printf "%.0f" .Stats.Distance}}</div>
+                            <div class="stat-label">Miles</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div class="stat-value green">{{printf "%.1f" .ElevK}}k</div>
+                            <div class="stat-label">Feet</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="stat-value orange">{{printf "%.0f" .Stats.Hours}}</div>
+                            <div class="stat-label">Hours</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="bi bi-lightning"></i>
+                            </div>
+                            <div class="stat-value purple">{{printf "%.1f" .Stats.AvgSpeed}}</div>
+                            <div class="stat-label">Avg MPH</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Rides -->
+            <section>
+                <div class="section-header">
+                    <span class="section-title">// recent rides</span>
+                </div>
+
+                {{if .Activities}}
+                <div class="d-flex flex-column gap-3">
+                    {{range .Activities}}
+                    <div class="card-glass p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <div class="activity-type mb-2">
+                                    <i class="bi bi-bicycle"></i>
+                                    Ride
+                                </div>
+                                <h3 class="h6 mb-1 font-mono">{{.Name}}</h3>
+                                <small class="text-muted font-mono">{{.Date}}</small>
+                            </div>
+                            <span class="blog-card-category cycling">{{printf "%.1f" .Distance}} mi</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-4 mt-3 pt-3" style="border-top: 1px solid var(--border-color);">
+                            <div class="activity-stat">
+                                <i class="bi bi-speedometer text-primary"></i>
+                                <span class="fw-semibold">{{printf "%.1f" .AvgSpeed}}</span>
+                                <span class="text-muted">mph</span>
+                            </div>
+                            <div class="activity-stat">
+                                <i class="bi bi-graph-up text-primary"></i>
+                                <span class="fw-semibold">{{.Elevation}}</span>
+                                <span class="text-muted">ft</span>
+                            </div>
+                            <div class="activity-stat">
+                                <i class="bi bi-clock text-primary"></i>
+                                <span class="fw-semibold">{{.Duration}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+                {{else}}
+                <div class="card-glass p-5 text-center">
+                    <p class="font-mono text-muted mb-0">// loading activity data...</p>
+                </div>
+                {{end}}
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card-glass p-4 sticky-top" style="top: 80px;">
+                <span class="section-title d-block mb-3">// data source</span>
+                <p class="small text-muted mb-3">
+                    All cycling data is automatically synced from Intervals.icu using their REST API.
+                </p>
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    {{if .IsLive}}
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--data-green); display: inline-block; flex-shrink: 0;"></span>
+                    <span class="small font-mono text-muted">live data connected</span>
+                    {{else}}
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--data-orange); display: inline-block; flex-shrink: 0;"></span>
+                    <span class="small font-mono text-muted">using sample data</span>
+                    {{end}}
+                </div>
+
+                <div class="section-divider my-3"></div>
+
+                <span class="section-title d-block mb-3">// goals</span>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1" style="font-family: var(--font-mono); font-size: 0.8rem;">
+                        <span class="text-muted">annual distance</span>
+                        <span style="color: var(--primary);">{{printf "%.0f" .GoalPct}}%</span>
+                    </div>
+                    <div class="progress" style="height: 4px; background: var(--bg-elevated); border-radius: 2px;">
+                        <div class="progress-bar" role="progressbar"
+                             style="width: {{printf "%.0f" .GoalPct}}%; background: var(--primary); border-radius: 2px;">
+                        </div>
+                    </div>
+                    <small class="text-muted font-mono">{{printf "%.0f" .Stats.Distance}} / 5,000 mi</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

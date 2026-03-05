@@ -1,0 +1,28 @@
+#!/bin/ksh
+# OpenBSD rc.d script for personal-site Go app
+# Place at /etc/rc.d/personalsite
+
+daemon="/usr/local/bin/personal-site"
+daemon_user="www"
+daemon_flags=""
+
+. /etc/rc.d/rc.subr
+
+rc_bg=YES
+rc_reload=NO
+
+rc_start() {
+    export PORT=5002
+    export ENV=production
+    export POSTS_DIR=/var/www/personal-site/content/posts
+    export STATIC_DIR=/var/www/personal-site/static
+    export TEMPLATES_DIR=/var/www/personal-site/templates
+    export DB_PATH=/var/www/personal-site/traffic.db
+    # Load secrets from file
+    if [ -f /etc/personal-site.env ]; then
+        . /etc/personal-site.env
+    fi
+    rc_exec "${daemon} ${daemon_flags}"
+}
+
+run_rc_command "$1"

@@ -1,0 +1,58 @@
+{{define "title"}}Blog | Blake Ridgway{{end}}
+{{define "description"}}Deep dives into SRE practices, cloud infrastructure, DevOps automation, security, and the intersection of technology with endurance sports.{{end}}
+
+{{define "content"}}
+<div class="container-lg" style="padding-top: 3rem; padding-bottom: 5rem;">
+
+    <!-- Page Header -->
+    <div class="mb-4">
+        <p class="term-comment mb-1">// writing</p>
+        <h1 class="display-4 mb-0">blog</h1>
+    </div>
+
+    <!-- Search + Filters -->
+    <div class="blog-filter-bar mb-4">
+        <form action="/blog" method="get" class="d-contents">
+            <div class="position-relative flex-grow-1" style="max-width: 320px;">
+                <i class="bi bi-search position-absolute top-50 translate-middle-y text-muted" style="left: 0.75rem; font-size: 0.8rem;"></i>
+                <input type="text" name="q" class="form-control bg-card border-subtle text-light"
+                       style="padding-left: 2.25rem;"
+                       placeholder="search articles..."
+                       value="{{.Query}}" />
+                {{if .Category}}<input type="hidden" name="category" value="{{.Category}}">{{end}}
+            </div>
+        </form>
+
+        {{if .Categories}}
+        <a href="/blog{{if .Query}}?q={{.Query}}{{end}}" class="badge-category{{if eq .Category ""}} active{{end}}">all</a>
+        {{range .Categories}}
+        <a href="/blog?category={{.}}{{if $.Query}}&amp;q={{$.Query}}{{end}}" class="badge-category{{if eq . $.Category}} active{{end}}">{{.}}</a>
+        {{end}}
+        {{end}}
+
+        <span class="footer-copy ms-auto">{{len .Posts}} posts</span>
+    </div>
+
+    <!-- Post List -->
+    {{if .Posts}}
+    <div>
+        {{range .Posts}}
+        <a href="/blog/{{.Slug}}" class="text-decoration-none d-block blog-list-item">
+            <div class="blog-list-date">{{fmtDate .Date "2006-01-02"}}</div>
+            <div class="blog-list-title">{{.Title}}</div>
+            <div class="blog-list-excerpt">{{.Excerpt}}</div>
+            <div class="blog-list-meta">
+                <span class="blog-card-category {{catClass .Category}}">{{.Category}}</span>
+                <span>{{.ReadMinutes}} min read</span>
+            </div>
+        </a>
+        {{end}}
+    </div>
+    {{else}}
+    <div class="card-glass rounded-xl p-5 text-center">
+        <p class="font-mono text-muted mb-0">// no posts yet — check back soon</p>
+    </div>
+    {{end}}
+
+</div>
+{{end}}

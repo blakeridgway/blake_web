@@ -1,0 +1,314 @@
+{{define "title"}}Setup — Blake Ridgway{{end}}
+
+{{define "content"}}
+<div class="container-lg py-5">
+
+  <div class="mb-5">
+    <p class="term-comment mb-1">// setup</p>
+    <h1 class="display-4 mb-2">my workstation</h1>
+    <p class="lead mb-0">
+      High-performance development environment optimized for infrastructure automation,
+      cloud engineering, and open-source development.
+    </p>
+  </div>
+
+  <div class="row g-5">
+    <div class="col-lg-8">
+
+      <!-- Primary Workstation -->
+      <section class="mb-5">
+        <div class="section-header">
+          <span class="section-title">// primary workstation</span>
+        </div>
+        <div class="card-glass overflow-hidden">
+          <div class="p-3 border-bottom" style="border-color: var(--border-color) !important; background: var(--bg-elevated);">
+            <span class="font-mono" style="font-size: 0.85rem; color: var(--text-muted);">core specifications</span>
+          </div>
+          <div class="p-4">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-cpu fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">CPU</h4>
+                    <p class="mb-0 text-muted small">Intel Core i9-12900K (16C/24T)</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-memory fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">RAM</h4>
+                    <p class="mb-0 text-muted small">Corsair LPX 64GB DDR5-3200</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-hdd fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">Storage</h4>
+                    <p class="mb-0 text-muted small">Samsung 980 PRO 1TB + Others</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-gpu-card fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">GPU</h4>
+                    <p class="mb-0 text-muted small">Intel Arc A770</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-diagram-2 fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">Motherboard</h4>
+                    <p class="mb-0 text-muted small">ASRock B660M PRO RS</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-start">
+                  <div class="me-3"><i class="bi bi-lightning-charge fs-4 text-primary"></i></div>
+                  <div>
+                    <h4 class="h6 mb-1">PSU</h4>
+                    <p class="mb-0 text-muted small">Corsair CX750M (750W Modular)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Homelab -->
+      <section class="mb-5">
+        <div class="section-header">
+          <span class="section-title">// homelab</span>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card-glass p-4 h-100">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-shield-check fs-4 text-primary me-3"></i>
+                <div>
+                  <h4 class="h6 mb-0">Firewall</h4>
+                  <small class="text-muted">Network Security</small>
+                </div>
+              </div>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Netgate 4200</li>
+                <li><i class="bi bi-check-circle text-primary me-2"></i>pfSense 24.11</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4 h-100">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-camera-video fs-4 text-primary me-3"></i>
+                <div>
+                  <h4 class="h6 mb-0">NVR</h4>
+                  <small class="text-muted">Video Surveillance</small>
+                </div>
+              </div>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-cpu text-primary me-2"></i>Intel Celeron G5900 @ 3.4GHz</li>
+                <li class="mb-1"><i class="bi bi-memory text-primary me-2"></i>8GB RAM</li>
+                <li class="mb-1"><i class="bi bi-eye text-primary me-2"></i>Frigate NVR</li>
+                <li><i class="bi bi-camera text-primary me-2"></i>6 Cameras</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4 h-100">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-hdd-rack fs-4 text-primary me-3"></i>
+                <div>
+                  <h4 class="h6 mb-0">PowerEdge R720</h4>
+                  <small class="text-muted">Virtualization Host</small>
+                </div>
+              </div>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-cpu text-primary me-2"></i>2x Intel Xeon E5-2620 @ 2.0GHz (24T)</li>
+                <li class="mb-1"><i class="bi bi-memory text-primary me-2"></i>96GB RAM</li>
+                <li class="mb-1"><i class="bi bi-hdd text-primary me-2"></i>8TB Storage</li>
+                <li><i class="bi bi-box text-primary me-2"></i>Proxmox VE</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4 h-100">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-hdd-rack fs-4 text-primary me-3"></i>
+                <div>
+                  <h4 class="h6 mb-0">PowerEdge R710</h4>
+                  <small class="text-muted">Application Server</small>
+                </div>
+              </div>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-cpu text-primary me-2"></i>2x Intel Xeon X5560 @ 2.8GHz</li>
+                <li class="mb-1"><i class="bi bi-memory text-primary me-2"></i>288GB RAM</li>
+                <li class="mb-1"><i class="bi bi-hdd text-primary me-2"></i>6× 1TB SAS</li>
+                <li><i class="bi bi-box text-primary me-2"></i>Fedora Server</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Peripherals -->
+      <section class="mb-5">
+        <div class="section-header">
+          <span class="section-title">// peripherals</span>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Monitors</h4>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>3x onn 24" FHD 100Hz</li>
+                <li><i class="bi bi-check-circle text-primary me-2"></i>Multi-monitor setup</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Input Devices</h4>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>System76 Launch Keyboard</li>
+                <li><i class="bi bi-check-circle text-primary me-2"></i>Logitech G305 Mouse</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Audio</h4>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>CCZ DC01 PRO Headset</li>
+                <li><i class="bi bi-check-circle text-primary me-2"></i>Pupgsis T12 Mixer</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Video</h4>
+              <ul class="list-unstyled small text-muted mb-0">
+                <li><i class="bi bi-check-circle text-primary me-2"></i>Logitech C920x Pro Webcam</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Software -->
+      <section>
+        <div class="section-header">
+          <span class="section-title">// software</span>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Development</h4>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge-stack">VS Code</span>
+                <span class="badge-stack">Git</span>
+                <span class="badge-stack">Docker</span>
+                <span class="badge-stack">Kubernetes</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-glass p-4">
+              <h4 class="h6 mb-3">Infrastructure</h4>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge-stack">Terraform</span>
+                <span class="badge-stack">Ansible</span>
+                <span class="badge-stack">ArgoCD</span>
+                <span class="badge-stack">Helm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <div class="card-glass p-4 sticky-top" style="top: 80px;">
+        <span class="section-title d-block mb-4">// system overview</span>
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value blue">6.5</div>
+              <div class="stat-label">TB Storage</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value green">64</div>
+              <div class="stat-label">GB RAM</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value orange">24</div>
+              <div class="stat-label">Threads</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value purple">72"</div>
+              <div class="stat-label">Display</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider my-3"></div>
+
+        <span class="section-title d-block mb-3">// primary os</span>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <span class="badge-tech">Fedora Linux</span>
+          <span class="badge-tech">KDE Plasma</span>
+          <span class="badge-tech">Flatpak</span>
+        </div>
+
+        <div class="section-divider my-3"></div>
+
+        <span class="section-title d-block mb-3">// homelab stats</span>
+        <div class="row g-2">
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value blue" style="font-size: 1.5rem;">384</div>
+              <div class="stat-label">GB RAM</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value green" style="font-size: 1.5rem;">14</div>
+              <div class="stat-label">TB Storage</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value orange" style="font-size: 1.5rem;">2</div>
+              <div class="stat-label">Servers</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-value purple" style="font-size: 1.5rem;">6</div>
+              <div class="stat-label">Cameras</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{end}}

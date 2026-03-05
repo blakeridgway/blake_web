@@ -1,0 +1,91 @@
+{{define "admin_title"}}Dashboard{{end}}
+
+{{define "admin_content"}}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+  <h1 class="term-comment mb-0" style="font-size: 1.25rem;">// dashboard</h1>
+  <a href="/admin/blog/new" class="btn btn-primary btn-sm">+ new post</a>
+</div>
+
+<!-- Stats row -->
+<div class="row g-3 mb-5">
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">page views (30d)</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">
+          {{.Stats.TotalPageViews}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">unique visitors</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">
+          {{.Stats.UniqueVisitors}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">avg response (ms)</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">
+          {{printf "%.0f" .Stats.AvgResponseMs}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">bounce rate</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">
+          {{printf "%.1f" .Stats.BounceRate}}%
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Posts table -->
+<h2 class="section-title mb-3" style="font-size: 1rem;">// posts</h2>
+{{if .Posts}}
+<div class="terminal-window">
+  <div class="terminal-body" style="padding: 0;">
+    <table class="table table-dark mb-0" style="font-family: var(--font-mono); font-size: 0.82rem; --bs-table-bg: transparent; --bs-table-border-color: var(--border-color);">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <th style="color: var(--text-muted); font-weight: 500; padding: 0.75rem 1rem;">title</th>
+          <th style="color: var(--text-muted); font-weight: 500;">category</th>
+          <th style="color: var(--text-muted); font-weight: 500;">date</th>
+          <th style="color: var(--text-muted); font-weight: 500; text-align: right; padding-right: 1rem;">actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Posts}}
+        <tr style="border-bottom: 1px solid rgba(0,229,195,0.08);">
+          <td style="padding: 0.6rem 1rem;">
+            <a href="/blog/{{.Slug}}" target="_blank" style="color: var(--text-primary); text-decoration: none;">{{.Title}}</a>
+          </td>
+          <td><span class="category-badge">{{.Category}}</span></td>
+          <td style="color: var(--text-muted);">{{fmtDate .Date "2006-01-02"}}</td>
+          <td style="text-align: right; padding-right: 1rem;">
+            <a href="/admin/blog/{{.Slug}}/edit" class="term-link me-3">edit</a>
+            <form method="POST" action="/admin/blog/{{.Slug}}/delete" class="d-inline"
+                  onsubmit="return confirm('Delete {{.Title}}?')">
+              <button type="submit" style="background: none; border: none; padding: 0; color: #ff5f57; font-family: var(--font-mono); font-size: 0.82rem; cursor: pointer;">delete</button>
+            </form>
+          </td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{else}}
+<p class="term-comment">// no posts yet — <a href="/admin/blog/new" class="term-link">create one</a></p>
+{{end}}
+{{end}}

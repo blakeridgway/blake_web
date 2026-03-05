@@ -1,0 +1,87 @@
+{{define "admin_title"}}{{if .IsNew}}New Post{{else}}Edit Post{{end}}{{end}}
+
+{{define "admin_content"}}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+  <h1 class="term-comment mb-0" style="font-size: 1.25rem;">
+    {{if .IsNew}}// new post{{else}}// edit post{{end}}
+  </h1>
+  <a href="/admin" class="btn btn-outline-primary btn-sm">← dashboard</a>
+</div>
+
+{{if .Error}}
+<div class="alert alert-danger" style="background: rgba(255,95,87,0.1); border-color: #ff5f57; color: #ff5f57; font-family: var(--font-mono); font-size: 0.85rem;">
+  {{.Error}}
+</div>
+{{end}}
+
+<form method="POST" action="/admin/blog/save">
+  {{if .Post}}<input type="hidden" name="file_path" value="{{.Post.FilePath}}">{{end}}
+
+  <div class="row g-3">
+    <div class="col-md-8">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">title</label>
+      <input type="text" name="title" required class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{.Post.Title}}{{end}}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">slug</label>
+      <input type="text" name="slug" required class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{.Post.Slug}}{{end}}" placeholder="my-post-slug">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">category</label>
+      <input type="text" name="category" class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{.Post.Category}}{{else}}Uncategorized{{end}}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">date</label>
+      <input type="date" name="date" required class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{fmtDate .Post.Date "2006-01-02"}}{{else}}{{fmtDate (now) "2006-01-02"}}{{end}}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">author</label>
+      <input type="text" name="author" class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{.Post.Author}}{{else}}Blake Ridgway{{end}}">
+    </div>
+    <div class="col-12">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">tags (comma-separated)</label>
+      <input type="text" name="tags" class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{range $i, $t := .Post.Tags}}{{if $i}}, {{end}}{{$t}}{{end}}{{end}}"
+        placeholder="kubernetes, sre, golang">
+    </div>
+    <div class="col-12">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">excerpt</label>
+      <input type="text" name="excerpt" class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono);"
+        value="{{if .Post}}{{.Post.Excerpt}}{{end}}"
+        placeholder="Short description for previews and SEO">
+    </div>
+    <div class="col-12">
+      <label class="form-label" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">content (markdown)</label>
+      <textarea name="content" rows="24" class="form-control"
+        style="background: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary); font-family: var(--font-mono); font-size: 0.85rem; resize: vertical;">{{if .Post}}{{.Post.Content}}{{end}}</textarea>
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input type="checkbox" name="draft" id="draft" class="form-check-input"
+          {{if and .Post .Post.Draft}}checked{{end}}>
+        <label for="draft" class="form-check-label" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">
+          draft (won't appear on public blog)
+        </label>
+      </div>
+    </div>
+    <div class="col-12 d-flex gap-2">
+      <button type="submit" class="btn btn-primary">
+        {{if .IsNew}}publish post{{else}}save changes{{end}}
+      </button>
+      <a href="/admin" class="btn btn-outline-primary">cancel</a>
+    </div>
+  </div>
+</form>
+{{end}}

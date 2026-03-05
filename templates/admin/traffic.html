@@ -1,0 +1,93 @@
+{{define "admin_title"}}Traffic{{end}}
+
+{{define "admin_content"}}
+<div class="mb-4">
+  <h1 class="term-comment mb-0" style="font-size: 1.25rem;">// traffic <span style="color: var(--text-muted); font-size: 0.85rem;">(last 30 days)</span></h1>
+</div>
+
+<!-- Stats -->
+<div class="row g-3 mb-5">
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">page views</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">{{.Stats.TotalPageViews}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">unique visitors</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">{{.Stats.UniqueVisitors}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">avg response ms</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">{{printf "%.0f" .Stats.AvgResponseMs}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 1rem;">
+        <div class="term-comment" style="font-size: 0.75rem;">bounce rate</div>
+        <div style="font-size: 1.5rem; font-family: var(--font-mono); color: var(--primary); font-weight: 700;">{{printf "%.1f" .Stats.BounceRate}}%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <!-- Top pages -->
+  <div class="col-lg-6">
+    <h2 class="section-title mb-3" style="font-size: 1rem;">// top pages</h2>
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 0;">
+        <table class="table table-dark mb-0" style="font-family: var(--font-mono); font-size: 0.82rem; --bs-table-bg: transparent; --bs-table-border-color: var(--border-color);">
+          <thead>
+            <tr><th style="color: var(--text-muted); padding: 0.6rem 1rem;">path</th><th style="color: var(--text-muted);">views</th></tr>
+          </thead>
+          <tbody>
+            {{range .TopPages}}
+            <tr>
+              <td style="padding: 0.5rem 1rem; color: var(--text-primary);">{{.Path}}</td>
+              <td style="color: var(--primary);">{{.Views}}</td>
+            </tr>
+            {{else}}
+            <tr><td colspan="2" style="padding: 0.75rem 1rem; color: var(--text-muted);">no data</td></tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top referrers -->
+  <div class="col-lg-6">
+    <h2 class="section-title mb-3" style="font-size: 1rem;">// top referrers</h2>
+    <div class="terminal-window">
+      <div class="terminal-body" style="padding: 0;">
+        <table class="table table-dark mb-0" style="font-family: var(--font-mono); font-size: 0.82rem; --bs-table-bg: transparent; --bs-table-border-color: var(--border-color);">
+          <thead>
+            <tr><th style="color: var(--text-muted); padding: 0.6rem 1rem;">referrer</th><th style="color: var(--text-muted);">count</th></tr>
+          </thead>
+          <tbody>
+            {{range .TopReferrers}}
+            <tr>
+              <td style="padding: 0.5rem 1rem; color: var(--text-primary); max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{.Referrer}}</td>
+              <td style="color: var(--primary);">{{.Count}}</td>
+            </tr>
+            {{else}}
+            <tr><td colspan="2" style="padding: 0.75rem 1rem; color: var(--text-muted);">no data</td></tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}

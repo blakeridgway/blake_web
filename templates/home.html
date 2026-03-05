@@ -1,0 +1,171 @@
+{{define "title"}}Blake Ridgway | SRE &amp; Cycling Enthusiast{{end}}
+{{define "description"}}Site Reliability Engineer building cloud-native infrastructure by day, cyclist exploring roads and trails by morning.{{end}}
+
+{{define "content"}}
+<!-- Hero: Terminal Window -->
+<section style="background: var(--bg-dark); border-bottom: 1px solid var(--border-color); padding: 3.5rem 0;">
+    <div class="container-lg">
+        <div class="terminal-window" style="max-width: 680px;">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="ms-2">blake&#64;ridgway:~</span>
+            </div>
+            <div class="terminal-body">
+                <div class="term-prompt">whoami</div>
+                <div class="term-output mb-3">Blake Ridgway &mdash; Site Reliability Engineer &amp; Cyclist</div>
+
+                <div class="term-prompt">cat bio.txt</div>
+                <div class="term-output mb-3">
+                    Engineering reliable systems, chasing miles on two wheels.<br>
+                    Based in Oklahoma. Building in the open.
+                </div>
+
+                <div class="term-prompt">ls stats/ <span class="term-comment"># YTD</span></div>
+                <div class="term-output mb-3">
+                    <span class="text-primary-custom me-3">{{printf "%.0f" .Stats.Distance}}mi</span><span class="text-accent me-3">{{.Stats.Elevation}}ft</span><span class="text-primary-custom me-3">{{.Stats.Count}}&nbsp;rides</span><span class="text-accent">{{printf "%.1f" .Stats.AvgSpeed}}mph&nbsp;avg</span>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="/about" class="btn btn-outline-primary btn-sm">./about</a>
+                    <a href="/biking" class="btn btn-outline-accent btn-sm">./cycling</a>
+                    <a href="/blog" class="btn btn-outline-primary btn-sm">./blog</a>
+                </div>
+
+                <div class="term-prompt mt-3 cursor-blink">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container-lg py-5">
+
+    <!-- Blog + Rides Row -->
+    <div class="row g-5 mb-5">
+
+        <!-- Latest Posts -->
+        <div class="col-lg-7">
+            <div class="section-header">
+                <span class="section-title">// latest posts</span>
+                <a href="/blog" class="btn btn-ghost">view all <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+
+            {{if .Posts}}
+            <div>
+                {{range .Posts}}
+                <a href="/blog/{{.Slug}}" class="text-decoration-none d-block blog-list-item">
+                    <div class="blog-list-date">{{fmtDate .Date "2006-01-02"}}</div>
+                    <div class="blog-list-title">{{.Title}}</div>
+                    <div class="blog-list-meta">
+                        <span class="blog-card-category {{catClass .Category}}">{{.Category}}</span>
+                        <span>{{.ReadMinutes}} min read</span>
+                    </div>
+                </a>
+                {{end}}
+            </div>
+            {{else}}
+            <div class="card-glass rounded-xl p-4 text-center">
+                <p class="text-muted mb-0 font-mono">// no posts yet</p>
+            </div>
+            {{end}}
+        </div>
+
+        <!-- Recent Rides -->
+        <div class="col-lg-5">
+            <div class="section-header">
+                <span class="section-title">// recent rides</span>
+                <a href="/biking" class="btn btn-ghost">view all <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+
+            {{range .Activities}}
+            <div class="blog-list-item">
+                <div class="blog-list-date">{{.Date}}</div>
+                <div class="blog-list-title">{{.Name}}</div>
+                <div class="blog-list-meta">
+                    <span class="text-primary-custom">{{printf "%.1f" .Distance}} mi</span>
+                    <span>{{.Elevation}} ft</span>
+                    <span>{{.Duration}}</span>
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <section>
+        <div class="section-header mb-4">
+            <span class="section-title">// projects</span>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="bi bi-cloud-check"></i>
+                    </div>
+                    <h3 class="project-title">GitOps HomeLab</h3>
+                    <p class="project-description">
+                        Enterprise-grade home lab with Kubernetes, GitOps workflows, and policy-as-code automation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="badge-tech">Kubernetes</span>
+                        <span class="badge-tech">ArgoCD</span>
+                        <span class="badge-tech">Terraform</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="/hardware" class="btn btn-ghost">
+                            view setup <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="bi bi-bicycle"></i>
+                    </div>
+                    <h3 class="project-title">RideAware</h3>
+                    <p class="project-description">
+                        Privacy-first cycling analytics with end-to-end encryption and open-source design.
+                    </p>
+                    <div class="project-tech">
+                        <span class="badge-tech">Go</span>
+                        <span class="badge-tech">React</span>
+                        <span class="badge-tech">E2EE</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://rideaware.org" target="_blank" class="btn btn-ghost">
+                            visit site <i class="bi bi-box-arrow-up-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h3 class="project-title">ByteFort</h3>
+                    <p class="project-description">
+                        Educational platform for homelabbing, privacy protection, and data sovereignty.
+                    </p>
+                    <div class="project-tech">
+                        <span class="badge-tech">Self-Hosting</span>
+                        <span class="badge-tech">Privacy</span>
+                        <span class="badge-tech">HomeLab</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://git.bytefort.org" target="_blank" class="btn btn-ghost">
+                            visit site <i class="bi bi-box-arrow-up-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{{end}}

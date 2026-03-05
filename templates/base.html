@@ -1,0 +1,84 @@
+{{define "base"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{block "title" .}}Blake Ridgway{{end}}</title>
+  <meta name="description" content="{{block "description" .}}Blake Ridgway — Site Reliability Engineer &amp; Cyclist{{end}}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="/static/css/site.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+
+  {{block "head" .}}{{end}}
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: var(--bg-dark); border-bottom: 1px solid var(--border-color);">
+  <div class="container">
+    <a class="navbar-brand" href="/" style="font-family: var(--font-mono); color: var(--primary); font-weight: 700;">~/blake</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom{{if eq .Page "home"}} active{{end}}" href="/">[home]</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom{{if eq .Page "about"}} active{{end}}" href="/about">[about]</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom{{if eq .Page "setup"}} active{{end}}" href="/hardware">[setup]</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom{{if eq .Page "cycling"}} active{{end}}" href="/biking">[cycling]</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom{{if eq .Page "blog"}} active{{end}}" href="/blog">[blog]</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page content -->
+<main>
+  {{block "content" .}}{{end}}
+</main>
+
+<!-- Footer -->
+<footer class="py-4 mt-5" style="border-top: 1px solid var(--border-color); background: var(--bg-dark);">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 0.8rem;">
+        © {{fmtDate (now) "2006"}} Blake Ridgway
+      </span>
+      <div class="d-flex gap-3">
+        <a href="https://gitlab.com/blakeridgway" class="footer-link" target="_blank" rel="noopener">gl</a>
+        <a href="https://linkedin.com/in/blakeridgway" class="footer-link" target="_blank" rel="noopener">li</a>
+        <a href="https://www.strava.com/athletes/blakeridgway" class="footer-link" target="_blank" rel="noopener">strava</a>
+        <a href="mailto:blake@ridgway.dev" class="footer-link">email</a>
+        <a href="/feed.xml" class="footer-link">rss</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{{block "scripts" .}}{{end}}
+</body>
+</html>{{end}}
+

@@ -1,0 +1,130 @@
+{{define "title"}}{{.Post.Title}} | Blake Ridgway{{end}}
+{{define "description"}}{{.Post.Excerpt}}{{end}}
+
+{{define "head"}}
+<style>
+  .blog-content h1, .blog-content h2, .blog-content h3,
+  .blog-content h4, .blog-content h5, .blog-content h6 {
+    font-family: var(--font-mono);
+    color: var(--primary);
+    margin-top: 2rem;
+  }
+  .blog-content code {
+    background: var(--bg-elevated);
+    color: var(--primary-light);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+  }
+  .blog-content pre {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  .blog-content pre code {
+    background: none;
+    padding: 0;
+    color: var(--text-primary);
+  }
+  .blog-content blockquote {
+    border-left: 3px solid var(--primary);
+    padding-left: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 1.5rem 0;
+  }
+  .blog-content a { color: var(--primary); }
+  .blog-content a:hover { color: var(--primary-light); }
+  .blog-content img { max-width: 100%; border-radius: 6px; }
+  .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  .blog-content th, .blog-content td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    text-align: left;
+  }
+  .blog-content th { background: var(--bg-elevated); color: var(--primary); font-family: var(--font-mono); }
+</style>
+{{end}}
+
+{{define "scripts"}}
+<script>
+(function() {
+  var bar = document.getElementById('readingProgressBar');
+  if (!bar) return;
+  function update() {
+    var doc = document.documentElement;
+    var scrollTop = doc.scrollTop || document.body.scrollTop;
+    var scrollHeight = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+{{end}}
+
+{{define "content"}}
+<!-- Reading Progress Bar -->
+<div class="reading-progress-bar" id="readingProgressBar"></div>
+
+<div style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
+
+    <!-- Post Header -->
+    <a href="/blog" class="btn btn-ghost mb-4 d-inline-block">&larr; back</a>
+
+    <div class="mb-2">
+        <span class="blog-card-category {{catClass .Post.Category}}">{{.Post.Category}}</span>
+    </div>
+
+    <h1 style="font-family: var(--font-mono); font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; line-height: 1.25; margin-bottom: 1rem;">
+        {{.Post.Title}}
+    </h1>
+
+    <div class="d-flex flex-wrap gap-3 mb-5" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+        <span>{{fmtDate .Post.Date "2006-01-02"}}</span>
+        <span>&middot;</span>
+        <span>{{.Post.ReadMinutes}} min read</span>
+        <span>&middot;</span>
+        <span>{{.Post.Author}}</span>
+    </div>
+
+    <!-- Article Body -->
+    <article class="blog-content">
+        {{.Post.HTML}}
+    </article>
+
+    <!-- Tags -->
+    {{if .Post.Tags}}
+    <div class="mt-5 pt-4" style="border-top: 1px solid var(--border-color);">
+        <p class="term-comment mb-2">// tags</p>
+        <div class="d-flex flex-wrap gap-2">
+            {{range .Post.Tags}}
+            <span class="badge-stack">{{.}}</span>
+            {{end}}
+        </div>
+    </div>
+    {{end}}
+
+    <!-- Author -->
+    <div class="mt-5 pt-4" style="border-top: 1px solid var(--border-color);">
+        <p class="term-comment mb-3">// author</p>
+        <div class="d-flex align-items-start gap-3">
+            <div>
+                <p class="font-mono mb-1" style="color: var(--primary); font-size: 0.9rem;">{{.Post.Author}}</p>
+                <p class="small mb-2" style="color: var(--text-secondary);">
+                    Site Reliability Engineer focused on building resilient, observable cloud infrastructure at scale.
+                </p>
+                <div class="d-flex gap-2">
+                    <a href="https://gitlab.com/blakeridgway" class="social-icon" target="_blank"><i class="bi bi-gitlab"></i></a>
+                    <a href="https://linkedin.com/in/blakearidgway" class="social-icon" target="_blank"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{{end}}

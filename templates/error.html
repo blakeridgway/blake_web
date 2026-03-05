@@ -1,0 +1,34 @@
+{{define "title"}}{{.Code}} — Blake Ridgway{{end}}
+
+{{define "content"}}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="ms-2" style="font-size: 0.8rem; opacity: 0.5;">blake@ridgway:~</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-prompt">curl ridgway.dev{{if .Code}} # {{.Code}}{{end}}</div>
+          <div class="term-output" style="color: #ff5f57;">
+            error: {{.Code}} — {{.Message}}
+          </div>
+          <div class="term-output mt-3" style="color: var(--text-muted); font-size: 0.85rem;">
+            the page you're looking for doesn't exist or has moved.
+          </div>
+          <div class="term-prompt mt-3"><span class="cursor-blink">█</span></div>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex gap-2">
+        <a href="/" class="btn btn-primary btn-sm">home</a>
+        <a href="/blog" class="btn btn-outline-primary btn-sm">blog</a>
+        <a href="/about" class="btn btn-outline-primary btn-sm">about</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
